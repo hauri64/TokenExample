@@ -1,4 +1,4 @@
-var Token = artifacts.require("./AmbrToken.sol");
+var Token = artifacts.require("./Token.sol");
 
 module.exports = function(deployer) {
     var token;

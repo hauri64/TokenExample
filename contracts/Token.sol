@@ -1,8 +1,6 @@
 pragma solidity ^0.4.18;
 
 
-import "./token/ERC223/MintableToken.sol";
-
 
 /**
  * @title SimpleToken
@@ -17,10 +15,12 @@ contract Token {
   uint8 public constant decimals = 18; 
 
 
+  event Approval(address indexed owner, address indexed spender, uint256 value);
   event Transfer(address indexed from, address indexed to, uint256 value);
 
-  function mint(address _to, uint256 _amount) onlyOwner public returns (bool) {
+  function mint(address _to, uint256 _amount) public returns (bool) {
     balances[_to] = balances[_to]+_amount;
+    totalSupply_ = totalSupply_ + _amount;
     return true;
   }
 
@@ -56,14 +56,14 @@ contract Token {
     balances[_to] = balances[_to]+_value;
     allowed[_from][msg.sender] = allowed[_from][msg.sender] - _value;
 
-    emit Transfer(_from, _to, _value,empty);
+    emit Transfer(_from, _to, _value);
     return true;
   }
 
   function approve(address _spender, uint256 _value) public returns (bool) {
     require((_value == 0) || (allowed[msg.sender][_spender] == 0));
     allowed[msg.sender][_spender] = _value;
-    emit Approval(msg.sender, _spender, _value);
+    emit Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
     return true;
   }
 
