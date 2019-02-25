@@ -12,7 +12,7 @@ contract Token {
 
   string public constant name = "Your Name"; 
   string public constant symbol = "TKN"; 
-  uint8 public constant decimals = 18; 
+  uint8 public constant decimals = 3; 
 
 
   event Approval(address indexed owner, address indexed spender, uint256 value);
